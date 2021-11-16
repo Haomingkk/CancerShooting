@@ -1,0 +1,34 @@
+Week3 part6 跳跃，地面检测
+Week3 part7 二级跳，shift跑步
+Week3 part8 animation走路bobbing动画
+Week4 part9 animation跑步bobbing动画，跳跃解除bobbing状态
+Week4 part10 GunHolder，bullet设置，shooting功能实现（firepoint，bullet 碰撞消失，随时间消失）
+Week4 part11 Bullet collider, bullet impact effect, bullet trail renderer
+Week4 part12 准星实现（Raycast，LookAt）
+Week4 part13 the animation of the ball(rotation, moving) in two ways
+Week5 part1 Enemy Health and bullet damage功能实现
+Week5 part2 Enemy 平地追人功能实现
+Week5 part3 Enemy AI功能实现（Navigation, 距离判定：追击，返回原位，静止）
+Week5 part4 Enemy bullet（换色），bullet生效对象（enemy or player）
+Week5 part5 Enemy shooting功能实现（shooting interval）
+Week5 part6 1、Enemy stay motionless while shooting 2、stop shooting if not concentrate on the player
+Week5 part7 Enemy 模型实装， Idle，Running， Shooting动画切换
+Week6 part1 PlayerHealthController,  HeadShoot要害设置， Invicible Time
+Week6 part2 PlayerHealth UI初始化界面
+Week6 part3 build connection between UI and PlayerHealth（UIController, PlayerHealthController）
+	    GameManager -> PlayerDied重载场景（IEnumerator）
+Week6 part4 checkpoint实现
+Week6 part5 HealHealth实现
+
+Week7 part1 枪模型实装，single shoot and consistent shoot功能实现(canAutoFire, fireRate)
+Week7 part2 Ammo and its UI
+Week7 part3 pickupAmmo(unfinished)
+Week7 part4 SwtichGun功能实现
+			Challenge： 1、different bullets for different guns						(finished)
+						2、self-adaption of the different guns						(finished)
+						3、zoom for sniper											(finished)
+						4、pick up new guns as the game goes on						
+Week8 part1 Post Process(滤镜？)
+Week8 part2 MuzzleFlash
+Week8 part3 DamageImage
+(Week8好水)
