@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject muzzleFlash;
 
+    //public GameObject camera;
+
     public float CheckAngle(float value)
     {
         float angle = value - 180;
@@ -52,7 +54,7 @@ public class PlayerController : MonoBehaviour
         activeGun = allGuns[currentGun];
         activeGun.gameObject.SetActive(true);
         firePoint = activeGun.firePoint;
-        UIController.instance.ammoText.text = "AMMO: " + activeGun.currentAmmo;
+        UIController.instance.ammoText.text = "AMMO: " + activeGun.currentAmmoInGun + "/" + activeGun.currentTotalAmmo;
     }
 
     // Update is called once per frame
@@ -118,6 +120,13 @@ public class PlayerController : MonoBehaviour
         muzzleFlash.SetActive(false);
         //Handle Shooting
 
+        //reload the gun
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            activeGun.ReloadGun();
+            UIController.instance.ammoText.text = "AMMO: " + activeGun.currentAmmoInGun + "/" + activeGun.currentTotalAmmo;
+        }
+
         //single shoot
         if (Input.GetMouseButtonDown(0) && activeGun.fireCounter <= 0)
         {
@@ -145,30 +154,78 @@ public class PlayerController : MonoBehaviour
         {
             if(activeGun.fireCounter <= 0)
             {
+                RaycastHit hit;
+                if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+                {
+                    if (Vector3.Distance(camTrans.position, hit.point) > 2f)
+                    {
+                        firePoint.LookAt(hit.point);
+                    }
+                }
+                //if not hit sth.
+                else
+                {
+                    //firePoint.LookAt(camTrans.position + new Vector3(0, 1f, 0) + (camTrans.forward * 30f));
+                    firePoint.LookAt(camTrans.position + (camTrans.forward * 30f));
+                }
                 FireShot();
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            currentGun++;
+            if (currentGun >= allGuns.Count)
+            {
+                currentGun = 0;
+            }
             SwitchGun();
+            
         }
 
         anim.SetFloat("moveSpeed", moveInput.magnitude);
         anim.SetBool("onGround", canJump);
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            //Debug.Log("Hit 1!");
+            if(currentGun != 0)
+            {
+                currentGun = 0;
+                SwitchGun();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            //Debug.Log("Hit 2!");
+            if (currentGun != 1)
+            {
+                currentGun = 1;
+                SwitchGun();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            //Debug.Log("Hit 1!");
+            if (currentGun != 2)
+            {
+                currentGun = 2;
+                SwitchGun();
+            }
+        }
     }
 
     public void FireShot()
     {
-        if(activeGun.currentAmmo > 0)
+        if(activeGun.currentAmmoInGun > 0)
         {
-            activeGun.currentAmmo--;
+            activeGun.currentAmmoInGun--;
 
             Instantiate(activeGun.bullet, firePoint.position, firePoint.rotation);
 
             activeGun.fireCounter = activeGun.fireRate;
 
-            UIController.instance.ammoText.text = "AMMO: " + activeGun.currentAmmo;
+            UIController.instance.ammoText.text = "AMMO: " + activeGun.currentAmmoInGun + "/" + activeGun.currentTotalAmmo;
 
             muzzleFlash.SetActive(true);
         }
@@ -178,18 +235,17 @@ public class PlayerController : MonoBehaviour
     public void SwitchGun()
     {
         activeGun.gameObject.SetActive(false);
-
-        currentGun++;
-        if (currentGun >= allGuns.Count)
-        {
-            currentGun = 0;
-        }
-
         activeGun = allGuns[currentGun];
         activeGun.gameObject.SetActive(true);
         firePoint = activeGun.firePoint;
-        UIController.instance.ammoText.text = "AMMO: " + activeGun.currentAmmo;
+        Camera.main.fieldOfView = 60f;
+        StartCoroutine(WaitOneMillisecond());
+        //UIController.instance.ammoText.text = "AMMO: " + activeGun.currentAmmoInGun + "/" + activeGun.currentTotalAmmo;
     }
 
-
+    public IEnumerator WaitOneMillisecond()
+    {
+        yield return new WaitForFixedUpdate();
+        UIController.instance.ammoText.text = "AMMO: " + activeGun.currentAmmoInGun + "/" + activeGun.currentTotalAmmo;
+    }
 }

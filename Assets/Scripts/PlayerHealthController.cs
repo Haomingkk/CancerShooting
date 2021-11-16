@@ -14,6 +14,8 @@ public class PlayerHealthController : MonoBehaviour
     public float invicibleLength;
     private float invicibleCounter;
 
+    public GameObject camera;
+
     private void Awake()
     {
         instance = this;
@@ -31,6 +33,7 @@ public class PlayerHealthController : MonoBehaviour
     }
 
     // Update is called once per frame
+    
     void Update()
     {
         //Debug.Log("It works!");
@@ -46,6 +49,7 @@ public class PlayerHealthController : MonoBehaviour
         {
             currentHealth -= damageAmount;
             UIController.instance.ShowDamage();
+            camera.GetComponent<CameraShake>().enabled = true;
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
