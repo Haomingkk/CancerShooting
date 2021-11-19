@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
 
     public Image damageEffect;
     public float damageAlpha = .25f, damageFadeSpeed = 2f;
+
+    public GameObject pauseMenu;
     private void Awake()
     {
         instance = this;
@@ -19,7 +21,7 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame

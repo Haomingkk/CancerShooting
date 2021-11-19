@@ -60,6 +60,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (GameManager.timeFlow == false)
+        {
+            anim.enabled = false;
+            return;
+        }
+        else
+        {
+            anim.enabled = true;
+        }
         //moveInput.x = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         //moveInput.z = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
         //charCon.Move(moveInput);
@@ -206,7 +216,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            //Debug.Log("Hit 1!");
+            //Debug.Log("Hit 3!");
             if (currentGun != 2)
             {
                 currentGun = 2;

@@ -40,6 +40,12 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.timeFlow == false)
+        {
+            agent.destination = transform.position;
+            return;
+        }
+
         targetPoint = PlayerController.instance.transform.position;
         targetPoint.y = transform.position.y;
 

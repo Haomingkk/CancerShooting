@@ -15,7 +15,12 @@ public class TargetMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(shouldMove)
+        if (GameManager.timeFlow == false)
+        {
+            return;
+        }
+
+        if (shouldMove)
         {
             transform.position += new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);
         }
