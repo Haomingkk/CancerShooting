@@ -99,9 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e5e71c588c07f4c9284afa960872c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 8
   jumpPower: 10
-  runSpeed: 12
+  runSpeed: 15
+  flySpeed: 40
   charCon: {fileID: 1269368185636579250}
   gravityModifier: 2
   camTrans: {fileID: 1269368185784188390}
@@ -132,8 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00f2862b8d089e41afdd07ad39a47ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 11
+  maxHealth: 100
   invicibleLength: 1
+  camera: {fileID: 0}
 --- !u!1 &1269368185772740794
 GameObject:
   m_ObjectHideFlags: 0

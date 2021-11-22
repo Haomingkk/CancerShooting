@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
 
-    public float moveSpeed, jumpPower, runSpeed = 12f, flySpeed = 20f;
+    public float moveSpeed, jumpPower, runSpeed = 12f, flySpeed = 40f;
     public CharacterController charCon;
 
     public float gravityModifier;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public GameObject muzzleFlash;
 
     private Vector3 flyDirection, flyDestination;
-    public GameObject animal;
+
 
     //public GameObject camera;
 
@@ -218,28 +218,6 @@ public class PlayerController : MonoBehaviour
             {
                 isFly = false;
             }
-            //RaycastHit hit;
-            //if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
-            //{
-            //    Instantiate(animal, hit.point, firePoint.rotation);
-            //    if (Vector3.Distance(camTrans.position, hit.point) < 2f || Vector3.Distance(camTrans.position - new Vector3(0f, 1.6f, 0f), hit.point) < 2f)
-            //    {
-            //        isFly = false;
-            //    }
-            //    else
-            //    {
-            //        if (isFly == false)
-            //        {
-            //            flyDirection = hit.point - camTrans.position;
-            //            flyDirection.Normalize();
-            //        }
-            //        
-            //        charCon.Move(flyDirection * flySpeed * Time.deltaTime);
-            //        isFly = true;
-            //    }
-            //    
-            //    
-            //}
         }
         else if (isFly == true)
         {

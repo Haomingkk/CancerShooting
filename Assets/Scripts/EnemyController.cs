@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
     private Vector3 targetPoint, startPoint;
 
     private bool chasing;
-    public float distanceToChase = 10f, distanceToLose = 15f, distanceToStop = 2f;
+    public float distanceToChase = 20f, distanceToLose = 30f, distanceToStop = 8f;
 
     public NavMeshAgent agent;
 
@@ -142,7 +142,7 @@ public class EnemyController : MonoBehaviour
                         Vector3 targetDir = PlayerController.instance.transform.position - transform.position;
                         float angle = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
 
-                        if (Mathf.Abs(angle) < 30f)
+                        if (Mathf.Abs(angle) < 60f)
                         {
                             Instantiate(bullet, firePoint.position, firePoint.rotation);
 
