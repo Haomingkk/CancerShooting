@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
 
-    public float moveSpeed, jumpPower, runSpeed = 12f;
+    public float moveSpeed, jumpPower, runSpeed = 12f, flySpeed = 20f;
     public CharacterController charCon;
 
     public float gravityModifier;
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public Transform camTrans;
     public float mouseSensibivity;
 
-    private bool canJump, canDoubleJump;
+    private bool canJump, canDoubleJump, isFly = false;
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
 
@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     public int currentGun;
 
     public GameObject muzzleFlash;
+
+    private Vector3 flyDirection, flyDestination;
+    public GameObject animal;
 
     //public GameObject camera;
 
@@ -82,6 +85,7 @@ public class PlayerController : MonoBehaviour
         Vector3 horiMove = transform.right * Input.GetAxis("Horizontal");
 
         moveInput = (vertMove + horiMove);
+        
         moveInput.Normalize();
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -95,16 +99,20 @@ public class PlayerController : MonoBehaviour
         moveInput.y = yStore;
         moveInput.y += Physics.gravity.y * gravityModifier * Time.deltaTime;
 
-        if(charCon.isGrounded)
+        if(charCon.isGrounded || isFly == true)
         {
             moveInput.y = Physics.gravity.y * gravityModifier * Time.deltaTime;
             //print(charCon.velocity.magnitude);
         }
+        
 
         canJump = Physics.OverlapSphere(groundCheckPoint.position, .25f, whatIsGround).Length > 0;
+        
+        
+        
 
         //Handle Jumping
-        if(Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (Input.GetKeyDown(KeyCode.Space) && (canJump || isFly))
         {
             moveInput.y = jumpPower;
             canDoubleJump = true;
@@ -113,8 +121,17 @@ public class PlayerController : MonoBehaviour
             moveInput.y = jumpPower;
             canDoubleJump = false;
         }
+        //Break fly
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isFly = false;
+        }
+        if (isFly == false || charCon.isGrounded)
+        {
+            isFly = false;
+            charCon.Move(moveInput * Time.deltaTime);
+        }
 
-        charCon.Move(moveInput * Time.deltaTime);
 
 
         //insight rotation
@@ -181,6 +198,58 @@ public class PlayerController : MonoBehaviour
                 FireShot();
             }
         }
+
+        //handle flying
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            if (isFly == false)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+                {
+                    flyDestination = hit.point;
+                    flyDirection = hit.point - camTrans.position;
+                    flyDirection.Normalize();
+                    charCon.Move(flyDirection * flySpeed * Time.deltaTime);
+                    isFly = true;
+                }
+            }
+            else
+            {
+                isFly = false;
+            }
+            //RaycastHit hit;
+            //if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+            //{
+            //    Instantiate(animal, hit.point, firePoint.rotation);
+            //    if (Vector3.Distance(camTrans.position, hit.point) < 2f || Vector3.Distance(camTrans.position - new Vector3(0f, 1.6f, 0f), hit.point) < 2f)
+            //    {
+            //        isFly = false;
+            //    }
+            //    else
+            //    {
+            //        if (isFly == false)
+            //        {
+            //            flyDirection = hit.point - camTrans.position;
+            //            flyDirection.Normalize();
+            //        }
+            //        
+            //        charCon.Move(flyDirection * flySpeed * Time.deltaTime);
+            //        isFly = true;
+            //    }
+            //    
+            //    
+            //}
+        }
+        else if (isFly == true)
+        {
+            charCon.Move(flyDirection * flySpeed * Time.deltaTime);
+            if (Vector3.Distance(camTrans.position, flyDestination) < 2f || Vector3.Distance(camTrans.position - new Vector3(0f, 1.6f, 0f), flyDestination) < 2f)
+            {
+                isFly = false;
+            }
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -257,5 +326,10 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
         UIController.instance.ammoText.text = "AMMO: " + activeGun.currentAmmoInGun + "/" + activeGun.currentTotalAmmo;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        isFly = false;
     }
 }
