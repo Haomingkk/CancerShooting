@@ -83,7 +83,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -182,7 +181,6 @@ GameObject:
   - component: {fileID: 4278480612584095684}
   - component: {fileID: 4278480612584095685}
   - component: {fileID: 4278480612584095690}
-  - component: {fileID: 4278480612584095691}
   - component: {fileID: 4278480612584095688}
   m_Layer: 0
   m_Name: BlackMan
@@ -234,31 +232,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd79b7af4c887ce4798f336668d70827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  currentHealth: 5
+  targetPoint: {x: 0, y: 0, z: 0}
+  startPoint: {x: 0, y: 0, z: 0}
+  chasing: 0
   distanceToChase: 10
   distanceToLose: 15
   distanceToStop: 2
   agent: {fileID: 4278480612584095688}
   keepChasingTime: 5
+  chaseCounter: 0
   bullet: {fileID: 7711403565075326059, guid: fbd0841989c66444086e59987d9c9669, type: 3}
   firePoint: {fileID: 4278480612937859198}
   fireRate: 0.3
+  fireCount: 0
   waitBetweenShoots: 2
   timeToShoot: 1
+  shootWaitCounter: 0
+  shootTimeCounter: 0
   anim: {fileID: 4278480612688113871}
---- !u!114 &4278480612584095691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4278480612584095689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3237ba7593cb347abf0276b439a501, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 5
 --- !u!195 &4278480612584095688
 NavMeshAgent:
   m_ObjectHideFlags: 0

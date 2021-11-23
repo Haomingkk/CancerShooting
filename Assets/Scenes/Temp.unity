@@ -269,7 +269,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -631,7 +630,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -736,6 +734,10 @@ PrefabInstance:
     - target: {fileID: 4278480612584095690, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
       propertyPath: distanceToChase
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278480612584095691, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
@@ -966,7 +968,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1365,7 +1366,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1448,7 +1448,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1563,7 +1562,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1735,7 +1733,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1915,6 +1912,10 @@ PrefabInstance:
     - target: {fileID: 4278480612584095690, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
       propertyPath: distanceToChase
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278480612584095691, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
@@ -2214,7 +2215,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2340,7 +2340,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2760,7 +2759,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2856,7 +2854,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3214,6 +3211,10 @@ PrefabInstance:
     - target: {fileID: 4278480612584095690, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
       propertyPath: distanceToChase
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278480612584095691, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
@@ -3651,7 +3652,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3752,7 +3752,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -4042,7 +4041,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -4145,17 +4143,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd79b7af4c887ce4798f336668d70827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  currentHealth: 5
+  targetPoint: {x: 0, y: 0, z: 0}
+  startPoint: {x: 0, y: 0, z: 0}
+  chasing: 0
   distanceToChase: 10
   distanceToLose: 15
   distanceToStop: 2
   agent: {fileID: 2103659824}
   keepChasingTime: 5
+  chaseCounter: 0
   bullet: {fileID: 7711403565075326059, guid: fbd0841989c66444086e59987d9c9669, type: 3}
   firePoint: {fileID: 1318365456}
   fireRate: 0.3
+  fireCount: 0
   waitBetweenShoots: 2
   timeToShoot: 1
+  shootWaitCounter: 0
+  shootTimeCounter: 0
   anim: {fileID: 0}
 --- !u!136 &2103659820
 CapsuleCollider:
@@ -4182,7 +4187,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -4435,6 +4439,10 @@ PrefabInstance:
     - target: {fileID: 4278480612584095690, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
       propertyPath: distanceToChase
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278480612584095691, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c3dc181d930e7546ae89bbe21e919d4, type: 3}
