@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
 
+    public bool isFirstPerspective = true;
+
     public float moveSpeed, jumpPower, runSpeed = 12f, flySpeed = 40f;
     public CharacterController charCon;
 
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
     public GameObject muzzleFlash;
 
     private Vector3 flyDirection, flyDestination;
+
+    public Animator spaceMan;
 
 
     //public GameObject camera;
@@ -73,6 +77,11 @@ public class PlayerController : MonoBehaviour
         {
             anim.enabled = true;
         }
+        if (!isFirstPerspective)
+        {
+            anim.enabled = false;
+        }
+        
         //moveInput.x = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         //moveInput.z = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
         //charCon.Move(moveInput);
@@ -96,6 +105,15 @@ public class PlayerController : MonoBehaviour
         {
             moveInput = moveInput * moveSpeed;
         }
+        if (moveInput.magnitude >= 1)
+        {
+            spaceMan.SetBool("ForwardMove", true);
+        }
+        else
+        {
+            spaceMan.SetBool("ForwardMove", false);
+        }
+
         moveInput.y = yStore;
         moveInput.y += Physics.gravity.y * gravityModifier * Time.deltaTime;
 
@@ -129,10 +147,13 @@ public class PlayerController : MonoBehaviour
         if (isFly == false || charCon.isGrounded)
         {
             isFly = false;
+            
             charCon.Move(moveInput * Time.deltaTime);
         }
 
-
+        spaceMan.SetBool("onGround", canJump);
+        anim.SetFloat("moveSpeed", moveInput.magnitude);
+        anim.SetBool("onGround", canJump);
 
         //insight rotation
         Vector2 mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensibivity;
@@ -159,29 +180,8 @@ public class PlayerController : MonoBehaviour
         {
             
             RaycastHit hit;
-            //if (Physics.Raycast(camTrans.position + new Vector3(0, 1f, 0), camTrans.forward, out hit, 50f))
-            if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+            if (isFirstPerspective)
             {
-                if (Vector3.Distance(camTrans.position, hit.point) > 2f)
-                {
-                    firePoint.LookAt(hit.point);
-                }
-            }
-            //if not hit sth.
-            else
-            {
-                //firePoint.LookAt(camTrans.position + new Vector3(0, 1f, 0) + (camTrans.forward * 30f));
-                firePoint.LookAt(camTrans.position + (camTrans.forward * 30f));
-            }
-            FireShot();
-        }
-
-        //consistent shoot
-        if(Input.GetMouseButton(0) && activeGun.canAutoFire)
-        {
-            if(activeGun.fireCounter <= 0)
-            {
-                RaycastHit hit;
                 if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
                 {
                     if (Vector3.Distance(camTrans.position, hit.point) > 2f)
@@ -192,8 +192,67 @@ public class PlayerController : MonoBehaviour
                 //if not hit sth.
                 else
                 {
-                    //firePoint.LookAt(camTrans.position + new Vector3(0, 1f, 0) + (camTrans.forward * 30f));
                     firePoint.LookAt(camTrans.position + (camTrans.forward * 30f));
+                }
+            }
+            else
+            {
+                if (Physics.Raycast(camTrans.position + new Vector3(0, 2f, 0), camTrans.forward, out hit, 50f))
+                //if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+                {
+                    if (Vector3.Distance(camTrans.position, hit.point) > 2f)
+                    {
+                        firePoint.LookAt(hit.point);
+                    }
+                }
+                //if not hit sth.
+                else
+                {
+                    firePoint.LookAt(camTrans.position + new Vector3(0, 2f, 0) + (camTrans.forward * 30f));
+                    //firePoint.LookAt(camTrans.position + (camTrans.forward * 30f));
+                }
+            }
+            
+            FireShot();
+        }
+
+        //consistent shoot
+        if(Input.GetMouseButton(0) && activeGun.canAutoFire)
+        {
+            if(activeGun.fireCounter <= 0)
+            {
+                RaycastHit hit;
+                if (isFirstPerspective)
+                {
+                    if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+                    {
+                        if (Vector3.Distance(camTrans.position, hit.point) > 2f)
+                        {
+                            firePoint.LookAt(hit.point);
+                        }
+                    }
+                    //if not hit sth.
+                    else
+                    {
+                        firePoint.LookAt(camTrans.position + (camTrans.forward * 30f));
+                    }
+                }
+                else
+                {
+                    if (Physics.Raycast(camTrans.position + new Vector3(0, 2f, 0), camTrans.forward, out hit, 50f))
+                    //if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+                    {
+                        if (Vector3.Distance(camTrans.position, hit.point) > 2f)
+                        {
+                            firePoint.LookAt(hit.point);
+                        }
+                    }
+                    //if not hit sth.
+                    else
+                    {
+                        firePoint.LookAt(camTrans.position + new Vector3(0, 2f, 0) + (camTrans.forward * 30f));
+                        //firePoint.LookAt(camTrans.position + (camTrans.forward * 30f));
+                    }
                 }
                 FireShot();
             }
@@ -205,14 +264,29 @@ public class PlayerController : MonoBehaviour
             if (isFly == false)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+                if (isFirstPerspective)
                 {
-                    flyDestination = hit.point;
-                    flyDirection = hit.point - camTrans.position;
-                    flyDirection.Normalize();
-                    charCon.Move(flyDirection * flySpeed * Time.deltaTime);
-                    isFly = true;
+                    if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50f))
+                    {
+                        flyDestination = hit.point;
+                        flyDirection = hit.point - camTrans.position;
+                        flyDirection.Normalize();
+                        charCon.Move(flyDirection * flySpeed * Time.deltaTime);
+                        isFly = true;
+                    }
                 }
+                else
+                {
+                    if (Physics.Raycast(camTrans.position + new Vector3(0, 2f, 0), camTrans.forward, out hit, 50f))
+                    {
+                        flyDestination = hit.point;
+                        flyDirection = hit.point - camTrans.position;
+                        flyDirection.Normalize();
+                        charCon.Move(flyDirection * flySpeed * Time.deltaTime);
+                        isFly = true;
+                    }
+                }
+                
             }
             else
             {
@@ -222,7 +296,7 @@ public class PlayerController : MonoBehaviour
         else if (isFly == true)
         {
             charCon.Move(flyDirection * flySpeed * Time.deltaTime);
-            if (Vector3.Distance(camTrans.position, flyDestination) < 2f || Vector3.Distance(camTrans.position - new Vector3(0f, 1.6f, 0f), flyDestination) < 2f)
+            if (Vector3.Distance(camTrans.position, flyDestination) < 2f || Vector3.Distance(groundCheckPoint.position, flyDestination) < 1f)
             {
                 isFly = false;
             }
@@ -240,8 +314,7 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        anim.SetFloat("moveSpeed", moveInput.magnitude);
-        anim.SetBool("onGround", canJump);
+        
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

@@ -14,8 +14,15 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //transform.position = target.position - target.transform.forward * 5f + new Vector3(0, 1f, 0);
-        transform.position = target.position;
+        if (PlayerController.instance.isFirstPerspective == true)
+        {
+            transform.position = target.position;
+        }
+        else
+        {
+            transform.position = target.position - target.transform.forward * 6f + new Vector3(0, 2f, 0);
+        }
+        
         transform.rotation = target.rotation;
     }
 }
