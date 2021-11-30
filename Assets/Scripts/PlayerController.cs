@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
         {
             anim.enabled = false;
         }
+
         
         //moveInput.x = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         //moveInput.z = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
@@ -105,14 +106,18 @@ public class PlayerController : MonoBehaviour
         {
             moveInput = moveInput * moveSpeed;
         }
-        if (moveInput.magnitude >= 1)
+        if (!isFirstPerspective)
         {
-            spaceMan.SetBool("ForwardMove", true);
+            if (moveInput.magnitude >= 1)
+            {
+                spaceMan.SetBool("ForwardMove", true);
+            }
+            else
+            {
+                spaceMan.SetBool("ForwardMove", false);
+            }
         }
-        else
-        {
-            spaceMan.SetBool("ForwardMove", false);
-        }
+        
 
         moveInput.y = yStore;
         moveInput.y += Physics.gravity.y * gravityModifier * Time.deltaTime;
@@ -124,19 +129,29 @@ public class PlayerController : MonoBehaviour
         }
         
 
-        canJump = Physics.OverlapSphere(groundCheckPoint.position, .25f, whatIsGround).Length > 0;
-        
-        
-        
+        canJump = Physics.OverlapSphere(groundCheckPoint.position, .1f, whatIsGround).Length > 0;
+
+
 
         //Handle Jumping
         if (Input.GetKeyDown(KeyCode.Space) && (canJump || isFly))
         {
             moveInput.y = jumpPower;
             canDoubleJump = true;
+            if (!isFirstPerspective)
+            {
+                spaceMan.SetTrigger("Jump");
+            }
+            
+            
         }else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
         {
-            moveInput.y = jumpPower;
+            moveInput.y = jumpPower * 2;
+            if (!isFirstPerspective)
+            {
+                spaceMan.SetTrigger("DoubleJump");
+            }
+            
             canDoubleJump = false;
         }
         //Break fly
@@ -151,9 +166,17 @@ public class PlayerController : MonoBehaviour
             charCon.Move(moveInput * Time.deltaTime);
         }
 
-        spaceMan.SetBool("onGround", canJump);
-        anim.SetFloat("moveSpeed", moveInput.magnitude);
-        anim.SetBool("onGround", canJump);
+        if (isFirstPerspective)
+        {
+            anim.SetFloat("moveSpeed", moveInput.magnitude);
+            anim.SetBool("onGround", canJump);
+        }
+        else
+        {
+            spaceMan.SetBool("onGround", canJump);
+        }
+        
+        
 
         //insight rotation
         Vector2 mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensibivity;
