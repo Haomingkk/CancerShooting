@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
             
         }else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
         {
-            moveInput.y = jumpPower * 2;
+            moveInput.y = jumpPower;
             if (!isFirstPerspective)
             {
                 spaceMan.SetTrigger("DoubleJump");
