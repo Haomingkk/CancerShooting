@@ -94,7 +94,7 @@ public class BossOneController : EnemyController
 
     public IEnumerator WaitToDestroy()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         Destroy(gameObject);
     }
     //到时候给触发器加个script写在里面
